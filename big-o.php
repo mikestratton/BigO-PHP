@@ -54,34 +54,58 @@ function log_n2($n){
 
 // O(log n) binary search of ordered array
 // use binary search to find the number
-function binary_search(Array $arr, $x)
-{
-   $l = count($arr) - 1;
-   $mid = floor($l / 2);
-   echo $arr[$mid];
-   if($arr[$mid] == $x){
-       echo "found";
-   }
-   if($arr[$mid] < $x){
-       $arr = array_splice($arr, $mid);
-       var_dump($arr);
-       $l = count($arr);
-       $mid = floor($l / 2);
-   }
-   if($arr[$mid] > $x){
-       $arr = array_splice($arr, -$mid);
-       var_dump($arr);
-       $l = count($arr) - 1;
-       $mid = floor($l / 2);
-   }
+$arr = [1,2,3,4,5,6,7,8];
+$start = 0;
+$end = count($arr) - 1;
+$target = 8;
+function binary_search($arr, $start, $end, $target){
+    if($start > $end){
+        echo "not found<br>";
+        return false;
+    }
+    $mid = floor(($start + $end) / 2);
+
+    if($arr[$mid] === $target){
+        echo "found <br>";
+        return true;
+    }
+
+    if($arr[$mid] > $target){
+        return binary_search($arr, $start, $mid -1, $target);
+    }
+
+    if($arr[$mid] < $target){
+        return binary_search($arr, $mid + 1, $end, $target);
+    }
 
 }
 
+// O(n log n)
+function n_log_n($n){
+    $y = $n;
+    while($n > 1){
+        $n = floor($n / 2);
+        for($i = 1; $i <= $y; $i++){
+            echo "$i<br>";
+        }
+    }
+}
 
+// merge sort O(n log n)
+function merge_sort($arr){
+    if(count($arr) < 2){
+        var_dump($arr);
+        return $arr;
+    }
+    $mid = floor(count($arr) / 2);
+    $left_arr = array_splice($arr,0, $mid);
+    $right_arr = array_splice($arr, $mid);
+}
 
 linear([1,2,3,4,5,"a","b","c"]);
 square(2);
 cube(2);
 log_n(8);
 log_n2(8);
-binary_search([1,3,12,43,57,89, 100, 123, 157], 100);
+binary_search($arr, $start, $end, $target);
+n_log_n(4);
